@@ -7,6 +7,7 @@ PRAVILNI_UGIB = 'C'
 NEVELJAVEN_UGIB = 'N'
 
 ZMAGA = 'W'
+PORAZ = 'X'
 
 class Igra:
     def __init__(self, beseda, datoteka_besed, ugibi):
@@ -20,15 +21,6 @@ class Igra:
             množica_besed = f.read().split("/n")
             for beseda in množica_besed:            
                 if ugib[-2:-1] == beseda[ : 1 ]:
-                    return False
-        
-        return True
-
-    def poraz(self):
-        with open(self.datoteka_besed, encoding="utf-8") as f:
-            množica_besed = f.read().split("/n")
-            for beseda in množica_besed:            
-                if self.koncnica == beseda[ : 1 ]:
                     return False
         
         return True
@@ -68,7 +60,10 @@ class Kalodont:
 
         with open(self.datoteka_besed, encoding="utf-8") as f:
             množica_besed = f.read().split("/n") 
-            beseda = random.choice(množica_besed)       
+            beseda = random.choice(množica_besed)
+            for besede in množica_besed:            
+                if beseda[ -2 : -1 ] == besede[ : 1 ]:
+                    return PORAZ       
             igra = Igra(beseda, f, self.ugibi)
 
         self.igre[id_igre] = (igra, ZAČETEK)
