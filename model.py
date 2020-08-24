@@ -1,11 +1,19 @@
 import random
 
+ZAČETEK = 'S'
+
+ŽE_UGIBANO = 'D'
+PRAVILNI_UGIB = 'C'
+NEVELJAVEN_UGIB = 'N'
+
+ZMAGA = 'W'
+
 class Igra:
     def __init__(self, beseda, datoteka_besed, ugibi):
         self.beseda = beseda.lower()
         self.koncnica = beseda[-2:-1]
         self.datoteka_besed = datoteka_besed
-        self.ugibi = {}
+        self.ugibi = []
 
     def ugibaj(self, ugib):
         ugib = ugib.lower()
@@ -14,7 +22,7 @@ class Igra:
             return ŽE_UGIBANO
 
         with open(self.datoteka_besed, encoding="utf-8") as f:
-            if ugib not in self.datoteka_besed:
+            if ugib not in f:
                 return NEVELJAVEN_UGIB
         
         self.ugibi.append(ugib)
@@ -38,13 +46,11 @@ class Kalodont:
 
     def nova_igra(self):
         id_igre = self.prost_id_igre()
+
         with open(self.datoteka_besed, encoding="utf-8") as f:
-            množica_besed = f.read().split("/n")
+            množica_besed = f.read().split("/n") 
+            beseda = random.choice(množica_besed)       
+            igra = Igra(beseda, f)
 
-
-        beseda = random.choice(množica_besed)
-        
-        igra = Igra(beseda)
-
-        self.igre[id_igre] = (igra, ZACETEK)
+        self.igre[id_igre] = (igra, ZAČETEK)
         return id_igre
