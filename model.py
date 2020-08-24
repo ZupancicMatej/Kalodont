@@ -1,5 +1,30 @@
 import random
 
+class Igra:
+    def __init__(self, beseda, datoteka_besed, ugibi):
+        self.beseda = beseda.lower()
+        self.koncnica = beseda[-2:-1]
+        self.datoteka_besed = datoteka_besed
+        self.ugibi = {}
+
+    def ugibaj(self, ugib):
+        ugib = ugib.lower()
+
+        if ugib in self.ugibi:
+            return ŽE_UGIBANO
+
+        with open(self.datoteka_besed, encoding="utf-8") as f:
+            if ugib not in self.datoteka_besed:
+                return NEVELJAVEN_UGIB
+        
+        self.ugibi.append(ugib)
+
+        if ugib[0 : 1] == self.koncnica:
+            if self.zmaga():
+                return ZMAGA
+            else:
+                return PRAVILNI_UGIB
+
 class Kalodont:
     def __init__(self, datoteka_besed):
         self.igre = {}
