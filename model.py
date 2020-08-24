@@ -13,7 +13,16 @@ class Igra:
         self.beseda = beseda.lower()
         self.koncnica = beseda[-2:-1]
         self.datoteka_besed = datoteka_besed
-        self.ugibi = []
+        self.ugibi = ugibi
+
+    def zmaga(self, ugib):
+        with open(self.datoteka_besed, encoding="utf-8") as f:
+            množica_besed = f.read().split("/n")
+            for beseda in množica_besed:            
+                if ugib[-2:-1] == beseda[ :1 ]:
+                    return False
+        
+        return True
 
     def ugibaj(self, ugib):
         ugib = ugib.lower()
@@ -28,7 +37,7 @@ class Igra:
         self.ugibi.append(ugib)
 
         if ugib[0 : 1] == self.koncnica:
-            if self.zmaga():
+            if self.zmaga(ugib):
                 return ZMAGA
             else:
                 return PRAVILNI_UGIB
