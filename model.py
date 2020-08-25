@@ -43,6 +43,18 @@ class Igra:
             else:
                 return PRAVILNI_UGIB
 
+def nova_igra(datoteka_besed=):
+    with open(datoteka_besed, encoding="utf-8") as f:
+        množica_besed = [f.read().split("/n")]
+        beseda = random.choice(množica_besed)
+        for besede in množica_besed:            
+            if beseda[ -2 : -1 ] == besede[ : 1 ]:
+                return PORAZ       
+        igra = Igra(beseda, f, self.ugibi)
+
+        self.igre[id_igre] = (igra, ZAČETEK)
+        return id_igre
+
 class Kalodont:
     def __init__(self, datoteka_besed, ugibi):
         self.igre = {}
