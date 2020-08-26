@@ -11,7 +11,7 @@ PORAZ = 'X'
 
 class Igra:
     def __init__(self, beseda, datoteka_besed, ugibi):
-        self.beseda = beseda.lower()
+        self.beseda = beseda
         self.koncnica = beseda[-2:-1]
         self.datoteka_besed = datoteka_besed
         self.ugibi = ugibi
@@ -24,6 +24,9 @@ class Igra:
                     return False
         
         return True
+
+    def beseda_1(self):
+        return self.beseda
 
     def ugibaj(self, ugib):
         ugib = ugib.lower()
@@ -43,17 +46,14 @@ class Igra:
             else:
                 return PRAVILNI_UGIB
 
-def nova_igra(datoteka_besed=):
-    with open(datoteka_besed, encoding="utf-8") as f:
-        množica_besed = [f.read().split("/n")]
+def nova_igra(datoteka_besed="C:\\Users\\Matej Zupančič\\Documents\\Uvod v programiranje\\Kalodont\\besede.txt"):
+    with open(datoteka_besed,"r", encoding="utf-8") as f:
+        množica_besed = [vrstica.strip().upper() for vrstica in f]
         beseda = random.choice(množica_besed)
         for besede in množica_besed:            
             if beseda[ -2 : -1 ] == besede[ : 1 ]:
                 return PORAZ       
-        igra = Igra(beseda, f, self.ugibi)
-
-        self.igre[id_igre] = (igra, ZAČETEK)
-        return id_igre
+        return Igra(beseda, f, [])
 
 class Kalodont:
     def __init__(self, datoteka_besed, ugibi):

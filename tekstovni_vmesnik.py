@@ -7,10 +7,16 @@ def izpis_zmage(igra):
     return f"Čestitke, uspelo ti je!"
 
 def izpis_igre(igra):
-    besedilo = f""" beseda: {igra.beseda}"""
+    besedilo = f""" beseda: {igra.beseda_1()}"""
     return besedilo
 
-
+def zahtevaj_vnos():
+    vnos = input("Ugibaj: ")
+    
+    if len(vnos) == 1:
+        return vnos
+    else:
+        return None
 
 def pozeni_vmesnik():
     igra = model.nova_igra()
